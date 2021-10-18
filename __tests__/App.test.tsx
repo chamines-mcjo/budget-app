@@ -6,8 +6,7 @@ describe(`<App>`, () => {
   it(`should render correctly`, () => {
     const { container } = render(<App />);
 
-    // expect(container).toBeTruthy();
-    // expect(container).not.toThrow();
-    expect(true).toBe(true);
+    expect(container).toBeTruthy();
+    expect(container).not.toBeNull();
   });
 });
