@@ -76,6 +76,7 @@ jobs:
         run: yarn test
 
   sonarcloud:
+    name: 🔍 SonarCloud
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
