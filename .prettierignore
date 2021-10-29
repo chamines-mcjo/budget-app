@@ -1,0 +1,5 @@
+coverage/
+.github/
+.vscode
+.eslintrc
+.expo-shared
