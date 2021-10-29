@@ -101,9 +101,6 @@ jobs:
         with:
           name: coverage
           path: coverage
-      
-      - name: Check report
-        run: ls -F coverage
 
       - name: 🔍 SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
