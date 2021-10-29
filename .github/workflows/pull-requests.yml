@@ -103,7 +103,7 @@ jobs:
           path: coverage
       
       - name: Check report
-        run: ls
+        run: ls -F coverage
 
       - name: 🔍 SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
