@@ -12,6 +12,7 @@ module.exports = function (api) {
             providers: './src/providers',
             screens: './src/screens',
             assets: './src/assets',
+            helpers: './src/helpers',
           },
         },
       ],
