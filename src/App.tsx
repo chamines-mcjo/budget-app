@@ -1,6 +1,5 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
-import { StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useFonts,

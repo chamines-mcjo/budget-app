@@ -1,6 +1,4 @@
-import { createTheme, BaseTheme } from '@shopify/restyle';
-
-const palette = {
+export const palette = {
   blue: {
     primary: '#1761C5',
     shade10: '#024EB5',
@@ -71,24 +69,98 @@ const palette = {
   },
 };
 
-const theme = createTheme({
-  colors: {
-    mainBackground: palette.white.primary,
+export const fontFamily = {
+  fontBold: {
+    fontFace: 'Inter_700Bold',
   },
-  spacing: {
-    '1': 4,
-    '2': 8,
-    '3': 12,
-    '4': 16,
-    '5': 20,
-    '6': 24,
-    '7': 28,
-    '8': 32,
-    '9': 36,
-    '10': 40,
+  fontSemiBold: {
+    fontFace: 'Inter_600SemiBold',
   },
-  breakpoints: {},
-});
+  fontMedium: {
+    fontFace: 'Inter_500Medium',
+  },
+  fontRegular: {
+    fontFace: 'Inter_400Regular',
+  },
+};
 
-export type AppTheme = typeof theme;
-export default theme;
+export const fontSize = {
+  textXs: {
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  textSm: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  textBase: {
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  textMd: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  textLg: {
+    fontSize: 17,
+    lineHeight: 24,
+  },
+  textXl: {
+    fontSize: 18,
+    lineHeight: 20,
+  },
+  text2Xl: {
+    fontSize: 20,
+    lineHeight: 24,
+  },
+  text3Xl: {
+    fontSize: 24,
+    lineHeight: 28,
+  },
+  text4Xl: {
+    fontSize: 28,
+    lineHeight: 32,
+  },
+  text5Xl: {
+    fontSize: 32,
+    lineHeight: 38,
+  },
+};
+
+export const typography = {
+  largeTitle: {
+    ...fontFamily.fontBold,
+    ...fontSize.text5Xl,
+  },
+  h1: {
+    ...fontFamily.fontBold,
+    ...fontSize.text4Xl,
+  },
+  h2: {
+    ...fontFamily.fontBold,
+    ...fontSize.text3Xl,
+  },
+  h3: {
+    ...fontFamily.fontBold,
+    ...fontSize.text2Xl,
+  },
+  h4: {
+    ...fontFamily.fontBold,
+    ...fontSize.textXl,
+  },
+  textLarge: {
+    ...fontSize.textLg,
+  },
+  textMedium16: {
+    ...fontSize.textMd,
+  },
+  textMedium: {
+    ...fontSize.textBase,
+  },
+  textSmall14: {
+    ...fontSize.textSm,
+  },
+  textSmall: {
+    ...fontSize.textXs,
+  },
+};
