@@ -24,10 +24,10 @@ jobs:
           node-version: 22
 
       - name: 📥 Download deps
-        run: yarn
+        run: npm install
 
       - name: 🔍 Typecheck
-        run: yarn lint
+        run: npm run lint
 
   typecheck:
     name: ⚙️ Typescript
@@ -47,10 +47,10 @@ jobs:
           node-version: 22
 
       - name: 📥 Download deps
-        run: yarn
+        run: npm install
 
       - name: 🔍 Typecheck
-        run: yarn typecheck
+        run: npm run typecheck
 
   jest:
     name: 🃏 Jest
@@ -70,10 +70,10 @@ jobs:
           node-version: 22
 
       - name: 📥 Download deps
-        run: yarn
+        run: npm install
 
       - name: 🃏 Run jest
-        run: yarn test
+        run: npm test
 
       - name: 📦 Archive code coverage results
         uses: actions/upload-artifact@v4
