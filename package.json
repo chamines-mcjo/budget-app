@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
+    "test:ci": "jest",
     "lint": "expo lint",
     "ts:check": "tsc -p . --noEmit"
   },
