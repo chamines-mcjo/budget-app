@@ -8,14 +8,15 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import Constants from "expo-constants";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -41,3 +42,16 @@ export default function RootLayout() {
     </ThemeProvider>
   );
 }
+
+let AppRoot = RootLayout;
+
+// eslint-disable-next-line prettier/prettier
+if (Constants?.expoConfig?.extra?.storybookEnabled === "true") {
+  console.log(
+    "Is Storybook enabled?: ",
+    Constants.expoConfig.extra?.storybookEnabled,
+  );
+  AppRoot = require("../.storybook/index").default;
+}
+
+export default AppRoot;
