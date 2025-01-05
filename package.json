@@ -20,6 +20,7 @@
     "collectCoverageFrom": [
       "**/*.{ts,tsx,js,jsx}",
       "!**/coverage/**",
+      "!**/stories/**",
       "!**/node_modules/**",
       "!**/babel.config.js",
       "!**/expo-env.d.ts",
