@@ -11,4 +11,6 @@ module.exports = withStorybook(config, {
   enabled: process.env.STORYBOOK_ENABLED === "true",
   // Path to your storybook config
   configPath: path.resolve(__dirname, "./.storybook"),
+  // If disabled remove Storybook from production build
+  onDisabledRemoveStorybook: true,
 });
