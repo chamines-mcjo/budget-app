@@ -13,8 +13,12 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
+const isStorybookEnabled =
+  Constants?.expoConfig?.extra?.storybookEnabled === "true";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-// SplashScreen.preventAutoHideAsync();
+if (!isStorybookEnabled) {
+  SplashScreen.preventAutoHideAsync();
+}
 
 function RootLayout() {
   const colorScheme = useColorScheme();
@@ -45,12 +49,7 @@ function RootLayout() {
 
 let AppRoot = RootLayout;
 
-// eslint-disable-next-line prettier/prettier
-if (Constants?.expoConfig?.extra?.storybookEnabled === "true") {
-  console.log(
-    "Is Storybook enabled?: ",
-    Constants.expoConfig.extra?.storybookEnabled,
-  );
+if (isStorybookEnabled) {
   AppRoot = require("../.storybook/index").default;
 }
 
