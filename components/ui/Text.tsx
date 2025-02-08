@@ -22,11 +22,11 @@ export const textWeights = {
 
 export type TextProps = {
   /**
-   * Preset size for text
+   * Text predefined size option. Follow t-shirt sizes
    */
   size?: keyof typeof textSizes;
   /**
-   * Preset font weight for text
+   * Text predefined weight option
    */
   weight?: keyof typeof textWeights;
   /**
