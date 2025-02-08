@@ -35,8 +35,15 @@ export type TextProps = {
   style?: Omit<RNTextProps["style"], "fontSize" | "fontWeight" | "fontFamily">;
 } & Pick<RNTextProps, "children">;
 
-export function Text({ children, size = "md", weight = "regular" }: TextProps) {
-  return <RNText style={[styles[size], styles[weight]]}>{children}</RNText>;
+export function Text({
+  children,
+  size = "md",
+  weight = "regular",
+  style,
+}: TextProps) {
+  return (
+    <RNText style={[styles[size], styles[weight], style]}>{children}</RNText>
+  );
 }
 
 const styles = StyleSheet.create({
