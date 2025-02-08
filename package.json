@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "test:ci": "jest",
+    "test:ci:coverage": "jest --coverage",
     "lint": "expo lint",
     "ts:check": "tsc -p . --noEmit",
     "storybook": "npm run storybook-generate && STORYBOOK_ENABLED='true' expo start",
