@@ -6,7 +6,13 @@ import { Text } from "@/components/ui/Text";
 import { colors } from "@/theme/colors";
 
 export type ButtonProps = {
+  /**
+   * Preset variant for the button.
+   */
   variant?: "primary" | "secondary" | "tertiary";
+  /**
+   * String label for the button
+   */
   children: string;
 } & Pick<
   PressableProps,
