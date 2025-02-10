@@ -34,6 +34,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <Pressable
+      disabled={disabled}
       style={[styles.base, styles[variant], disabled && styles.disabled]}
       {...props}
     >
