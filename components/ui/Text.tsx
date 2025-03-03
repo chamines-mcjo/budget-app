@@ -1,3 +1,4 @@
+import { fontFamilies, fontSizes, lineHeights } from "@/theme/fonts";
 import { Text as RNText, StyleSheet } from "react-native";
 
 import type { TextProps as RNTextProps } from "react-native";
@@ -48,39 +49,48 @@ export function Text({
 
 const styles = StyleSheet.create({
   xs: {
-    fontSize: 13,
+    fontSize: fontSizes["xs"],
+    lineHeight: lineHeights["xs"],
   },
   sm: {
-    fontSize: 14,
+    fontSize: fontSizes["sm"],
+    lineHeight: lineHeights["sm"],
   },
   md: {
-    fontSize: 16,
+    fontSize: fontSizes["md"],
+    lineHeight: lineHeights["md"],
   },
   lg: {
-    fontSize: 17,
+    fontSize: fontSizes["lg"],
+    lineHeight: lineHeights["lg"],
   },
   xl: {
-    fontSize: 18,
+    fontSize: fontSizes["xl"],
+    lineHeight: lineHeights["xl"],
   },
   "2xl": {
-    fontSize: 20,
+    fontSize: fontSizes["2xl"],
+    lineHeight: lineHeights["2xl"],
   },
   "3xl": {
-    fontSize: 24,
+    fontSize: fontSizes["3xl"],
+    lineHeight: lineHeights["3xl"],
   },
   "4xl": {
-    fontSize: 30,
+    fontSize: fontSizes["4xl"],
+    lineHeight: lineHeights["4xl"],
   },
   "5xl": {
-    fontSize: 32,
+    fontSize: fontSizes["5xl"],
+    lineHeight: lineHeights["5xl"],
   },
   bold: {
-    fontWeight: "700",
+    fontFamily: fontFamilies.InterBold,
   },
   semiBold: {
-    fontWeight: "600",
+    fontFamily: fontFamilies.InterSemiBold,
   },
   regular: {
-    fontWeight: "400",
+    fontFamily: fontFamilies.InterRegular,
   },
 });
