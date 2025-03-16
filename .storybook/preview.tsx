@@ -13,10 +13,6 @@ const preview: Preview = {
     },
     backgrounds: {
       values: [
-        {
-          name: "white",
-          value: "#ffffff",
-        },
         ...Object.entries(colors)
           .map(([key, value]) => {
             return Object.entries(value).map(([shade, color]) => ({
@@ -26,7 +22,7 @@ const preview: Preview = {
           })
           .flat(),
       ],
-      default: "white",
+      default: "neutral-100",
       enabled: true,
     },
   },
