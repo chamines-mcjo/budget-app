@@ -12,25 +12,32 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Dark: Story = {
-  argTypes: {
-    variant: {
-      control: {
-        type: "select",
-      },
-      options: ["dark", "light"],
+const argTypes: Story["argTypes"] = {
+  variant: {
+    control: {
+      type: "select",
     },
-    label: {
-      control: {
-        type: "text",
-      },
-    },
-    hasError: {
-      control: {
-        type: "boolean",
-      },
+    options: ["dark", "light"],
+  },
+  label: {
+    control: {
+      type: "text",
     },
   },
+  value: {
+    control: {
+      type: "text",
+    },
+  },
+  hasError: {
+    control: {
+      type: "boolean",
+    },
+  },
+};
+
+export const Dark: Story = {
+  argTypes,
   args: {
     label: "Monthly amount",
     value: undefined,
@@ -41,24 +48,7 @@ export const Dark: Story = {
 };
 
 export const Light: Story = {
-  argTypes: {
-    variant: {
-      control: {
-        type: "select",
-      },
-      options: ["dark", "light"],
-    },
-    label: {
-      control: {
-        type: "text",
-      },
-    },
-    hasError: {
-      control: {
-        type: "boolean",
-      },
-    },
-  },
+  argTypes,
   args: {
     label: "Monthly amount",
     value: undefined,

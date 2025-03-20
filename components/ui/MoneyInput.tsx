@@ -96,7 +96,7 @@ export function MoneyInput({
               ? colors.red[400]
               : isDark
                 ? colors.neutral[700]
-                : colors.neutral[300]
+                : colors.neutral[200]
           }
           selectionColor={isDark ? colors.neutral[900] : colors.neutral[100]}
           autoComplete="off"
