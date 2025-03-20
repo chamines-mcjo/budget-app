@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Example: Story = {
+export const Dark: Story = {
   argTypes: {
     variant: {
       control: {
@@ -36,5 +36,39 @@ export const Example: Story = {
     value: undefined,
     placeholder: "0.00",
     onChangeText: action("onChangeText"),
+    variant: "dark",
+  },
+};
+
+export const Light: Story = {
+  argTypes: {
+    variant: {
+      control: {
+        type: "select",
+      },
+      options: ["dark", "light"],
+    },
+    label: {
+      control: {
+        type: "text",
+      },
+    },
+    hasError: {
+      control: {
+        type: "boolean",
+      },
+    },
+  },
+  args: {
+    label: "Monthly amount",
+    value: undefined,
+    placeholder: "0.00",
+    onChangeText: action("onChangeText"),
+    variant: "light",
+  },
+  parameters: {
+    backgrounds: {
+      default: "primary-700",
+    },
   },
 };
