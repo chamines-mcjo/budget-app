@@ -6,7 +6,6 @@ import { Text } from "@/components/ui/Text";
 import type { TextInputProps } from "react-native";
 import { FontFamilies } from "@/constants/Fonts";
 import { colors } from "@/theme/colors";
-import { moneyFormat } from "@/helpers/numbers";
 
 export type MoneyInputProps = {
   /**
@@ -31,6 +30,7 @@ export type MoneyInputProps = {
   | "onBlur"
   | "maxLength"
   | "testID"
+  | "nativeID"
   | "enterKeyHint"
   | "returnKeyType"
   | "autoFocus"
@@ -43,6 +43,7 @@ export function MoneyInput({
   value,
   onChangeText,
   hasError = false,
+  nativeID,
   ...inputProps
 }: MoneyInputProps) {
   const isDark = variant === "dark";
@@ -57,6 +58,7 @@ export function MoneyInput({
         <Text
           size="md"
           weight="semiBold"
+          nativeID={nativeID ? `${nativeID}-label` : undefined}
           style={[
             isDark ? styles.label : styles.labelLight,
             hasError && styles.textColorError,
@@ -83,6 +85,7 @@ export function MoneyInput({
           $
         </Text>
         <TextInput
+          accessibilityLabelledBy={nativeID ? `${nativeID}-label` : undefined}
           style={[
             styles.input,
             !isDark && styles.textColorLight,
@@ -101,7 +104,7 @@ export function MoneyInput({
           keyboardType="decimal-pad"
           textAlign="right"
           onChangeText={handleChangeText}
-          value={value ? moneyFormat(value) : undefined}
+          value={value}
           {...inputProps}
         />
       </View>
