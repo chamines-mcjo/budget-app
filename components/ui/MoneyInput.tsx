@@ -91,13 +91,7 @@ export function MoneyInput({
             !isDark && styles.textColorLight,
             hasError && styles.textColorError,
           ]}
-          placeholderTextColor={
-            hasError
-              ? colors.red[400]
-              : isDark
-                ? colors.neutral[700]
-                : colors.neutral[200]
-          }
+          placeholderTextColor={getPlaceholderColor({ isDark, hasError })}
           selectionColor={isDark ? colors.neutral[900] : colors.neutral[100]}
           autoComplete="off"
           inputMode="decimal"
@@ -110,6 +104,22 @@ export function MoneyInput({
       </View>
     </View>
   );
+}
+
+function getPlaceholderColor({
+  isDark,
+  hasError,
+}: {
+  isDark: boolean;
+  hasError: boolean;
+}) {
+  if (hasError) {
+    return colors.red[400];
+  }
+  if (isDark) {
+    return colors.neutral[700];
+  }
+  return colors.neutral[200];
 }
 
 const styles = StyleSheet.create({
