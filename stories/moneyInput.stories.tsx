@@ -14,9 +14,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Example: Story = {
   argTypes: {
+    variant: {
+      control: {
+        type: "select",
+      },
+      options: ["dark", "light"],
+    },
     label: {
       control: {
         type: "text",
+      },
+    },
+    hasError: {
+      control: {
+        type: "boolean",
       },
     },
   },
