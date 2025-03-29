@@ -1,11 +1,16 @@
 import type { ReactNode } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 
+import { FontFamilies } from "@/constants/Fonts";
+import { colors } from "@/theme/colors";
+import {
+  sanitizeFormattedMoneyValue,
+  sanitizeAndFormatMoney,
+} from "@/helpers/numbers";
+import { useFormattedInputProps } from "@/hooks/useFormattedInputProps";
 import { Text } from "@/components/ui/Text";
 
 import type { TextInputProps } from "react-native";
-import { FontFamilies } from "@/constants/Fonts";
-import { colors } from "@/theme/colors";
 
 export type MoneyInputProps = {
   /**
@@ -47,10 +52,13 @@ export function MoneyInput({
   ...inputProps
 }: MoneyInputProps) {
   const isDark = variant === "dark";
-  const handleChangeText = (text: string) => {
-    onChangeText?.(text);
-    return text;
-  };
+  const { value: inputValue, onChangeText: handleChangeText } =
+    useFormattedInputProps({
+      formatFn: sanitizeAndFormatMoney,
+      removeFormatFn: sanitizeFormattedMoneyValue,
+      onChangeText,
+      value: value,
+    });
 
   return (
     <View style={[styles.container, style]}>
@@ -98,7 +106,7 @@ export function MoneyInput({
           keyboardType="decimal-pad"
           textAlign="right"
           onChangeText={handleChangeText}
-          value={value}
+          value={inputValue}
           {...inputProps}
         />
       </View>

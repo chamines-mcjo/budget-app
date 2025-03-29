@@ -28,7 +28,29 @@ describe("MoneyInput", () => {
     const input = getByTestId("money-input");
     fireEvent.changeText(input, "200");
 
-    expect(onChangeText).toHaveBeenCalledWith("200");
+    expect(onChangeText).toHaveBeenCalledWith("2.00");
+  });
+
+  it("handles value formatting on change correctly", () => {
+    const onChangeText = jest.fn();
+    const { getByTestId } = render(
+      <MoneyInput
+        testID="money-input"
+        value="100"
+        onChangeText={onChangeText}
+      />,
+    );
+
+    const input = getByTestId("money-input");
+
+    fireEvent.changeText(input, "1234");
+    expect(onChangeText).toHaveBeenCalledWith("12.34");
+
+    fireEvent.changeText(input, "12");
+    expect(onChangeText).toHaveBeenCalledWith("0.12");
+
+    fireEvent.changeText(input, "1,234.00");
+    expect(onChangeText).toHaveBeenCalledWith("1,234.00");
   });
 
   it("applies error styles when hasError is true", () => {
