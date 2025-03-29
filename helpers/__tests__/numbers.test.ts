@@ -1,4 +1,8 @@
-import { moneyFormat } from "../numbers";
+import {
+  moneyFormat,
+  sanitizeAndFormatMoney,
+  sanitizeFormattedMoneyValue,
+} from "../numbers";
 
 describe("moneyFormat", () => {
   it("formats number as USD currency with symbol", () => {
@@ -75,5 +79,49 @@ describe("moneyFormat", () => {
   it("formats 0 as decimal with default options", () => {
     const result = moneyFormat("0");
     expect(result).toBe("0.00");
+  });
+});
+
+describe("sanitizeAndFormatMoney", () => {
+  it("sanitizes and formats money value", () => {
+    const result = sanitizeAndFormatMoney("1234.56");
+    expect(result).toBe("1,234.56");
+  });
+
+  it("handles empty string input", () => {
+    const result = sanitizeAndFormatMoney("");
+    expect(result).toBe("0.00");
+  });
+
+  it("handles non-numeric input", () => {
+    const result = sanitizeAndFormatMoney("abc");
+    expect(result).toBe("0.00");
+  });
+
+  it("handles negative values", () => {
+    const result = sanitizeAndFormatMoney("-1234.56");
+    expect(result).toBe("1,234.56");
+  });
+});
+
+describe("sanitizeFormattedMoneyValue", () => {
+  it("sanitizes formatted money value", () => {
+    const result = sanitizeFormattedMoneyValue("$1,234.56");
+    expect(result).toBe("1234.56");
+  });
+
+  it("handles empty string input", () => {
+    const result = sanitizeFormattedMoneyValue("");
+    expect(result).toBe("");
+  });
+
+  it("handles non-numeric input", () => {
+    const result = sanitizeFormattedMoneyValue("abc");
+    expect(result).toBe("");
+  });
+
+  it("handles negative values", () => {
+    const result = sanitizeFormattedMoneyValue("-$1,234.56");
+    expect(result).toBe("1234.56");
   });
 });
