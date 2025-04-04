@@ -34,16 +34,19 @@ export type TextProps = {
    * Style for layout text in view
    */
   style?: Omit<RNTextProps["style"], "fontSize" | "fontWeight" | "fontFamily">;
-} & Pick<RNTextProps, "children">;
+} & Pick<RNTextProps, "children" | "testID" | "nativeID">;
 
 export function Text({
   children,
   size = "md",
   weight = "regular",
   style,
+  ...props
 }: TextProps) {
   return (
-    <RNText style={[styles[size], styles[weight], style]}>{children}</RNText>
+    <RNText {...props} style={[styles[size], styles[weight], style]}>
+      {children}
+    </RNText>
   );
 }
 

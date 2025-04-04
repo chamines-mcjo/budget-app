@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { Text } from "@/components/ui/Text";
 
-describe("Text component", () => {
+describe("Text", () => {
   it("renders correctly with default props", () => {
     const { getByText } = render(<Text>Test Text</Text>);
     const textElement = getByText("Test Text");
