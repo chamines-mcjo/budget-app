@@ -20,11 +20,11 @@ export type TextInputProps = {
    */
   label?: ReactNode;
   /**
-   * Whether the input should be multiline
+   * Whether the input should be multiline. Default to false.
    */
   multiline?: boolean;
   /**
-   * Determine if input value is in error state or not
+   * Determine if input value is in error state or not. Default to false.
    */
   hasError?: boolean;
   /**

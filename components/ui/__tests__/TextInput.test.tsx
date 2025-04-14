@@ -53,7 +53,7 @@ describe("TextInput Component", () => {
     );
   });
 
-  it("should apply error border on dark variant", () => {
+  it("should apply error styles on dark variant", () => {
     const { getByPlaceholderText } = render(
       <TextInput
         placeholder="Error input"
@@ -96,7 +96,7 @@ describe("TextInput Component", () => {
       (style: { color?: string }) => style.color === colors.red[900],
     );
 
-    expect(errorColorStyle).toBeDefined(); // Ensure the error color is present
+    expect(errorColorStyle).toBeDefined();
   });
 
   it("should apply error styles on dark variant", () => {
@@ -124,7 +124,7 @@ describe("TextInput Component", () => {
       (style: { color?: string }) => style.color === colors.red[600],
     );
 
-    expect(errorColorStyle).toBeDefined(); // Ensure the error color is present
+    expect(errorColorStyle).toBeDefined();
   });
 
   it("should link input to label via accessibilityLabelledBy", () => {
