@@ -62,22 +62,14 @@ export function TextInput({
 }: TextInputProps) {
   const isDark = variant === "dark";
   const labelId = nativeID ? `${nativeID}-label` : undefined;
+  const labelStyle = [
+    isDark ? styles.label : styles.labelLight,
+    hasError && (isDark ? styles.labelError : styles.labelErrorLight),
+  ];
   return (
     <View style={[styles.container, containerStyle]}>
       {Boolean(label) && (
-        <Text
-          size="md"
-          weight="semiBold"
-          nativeID={labelId}
-          style={[
-            isDark ? styles.label : styles.labelLight,
-            hasError
-              ? isDark
-                ? styles.labelError
-                : styles.labelErrorLight
-              : {},
-          ]}
-        >
+        <Text size="md" weight="semiBold" nativeID={labelId} style={labelStyle}>
           {label}
         </Text>
       )}
@@ -89,7 +81,7 @@ export function TextInput({
         placeholderTextColor={colors.neutral["400"]}
         multiline={multiline}
         textAlignVertical={multiline ? "top" : "center"}
-        style={[useInputStyles({ isDark, hasError, multiline, style }), style]}
+        style={useInputStyles({ isDark, hasError, multiline, style })}
         {...props}
       />
     </View>
@@ -108,11 +100,11 @@ function useInputStyles({
   style?: any;
 }) {
   const baseBackground = isDark ? styles.baseDark : styles.baseLight;
-  const baseBorder = hasError
-    ? isDark
-      ? styles.baseError
-      : styles.baseErrorLight
-    : {};
+
+  let baseBorder = {};
+  if (hasError) {
+    baseBorder = isDark ? styles.baseError : styles.baseErrorLight;
+  }
 
   return [
     styles.baseCore,
@@ -120,7 +112,7 @@ function useInputStyles({
     baseBorder,
     multiline && styles.multiline,
     style,
-  ];
+  ].filter(Boolean);
 }
 
 const styles = StyleSheet.create({
