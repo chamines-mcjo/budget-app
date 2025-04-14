@@ -64,7 +64,7 @@ export function TextInput({
   const labelId = nativeID ? `${nativeID}-label` : undefined;
   const labelStyle = [
     isDark ? styles.label : styles.labelLight,
-    hasError && (isDark ? styles.labelError : styles.labelErrorLight),
+    hasError && styles.labelError,
   ];
   return (
     <View style={[styles.container, containerStyle]}>
@@ -78,7 +78,9 @@ export function TextInput({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor={colors.neutral["400"]}
+        placeholderTextColor={
+          hasError ? colors.red[400] : colors.neutral["400"]
+        }
         multiline={multiline}
         textAlignVertical={multiline ? "top" : "center"}
         style={useInputStyles({ isDark, hasError, multiline, style })}
@@ -100,17 +102,13 @@ function useInputStyles({
   style?: any;
 }) {
   const baseBackground = isDark ? styles.baseDark : styles.baseLight;
-
-  let baseBorder = {};
-  if (hasError) {
-    baseBorder = isDark ? styles.baseError : styles.baseErrorLight;
-  }
+  const errorBorder = hasError ? styles.baseError : {};
 
   return [
     styles.baseCore,
     baseBackground,
-    baseBorder,
     multiline && styles.multiline,
+    errorBorder,
     style,
   ].filter(Boolean);
 }
@@ -125,9 +123,6 @@ const styles = StyleSheet.create({
   labelLight: {
     color: colors.neutral[100],
   },
-  labelErrorLight: {
-    color: colors.red[900],
-  },
   labelError: {
     color: colors.red[600],
   },
@@ -138,6 +133,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     fontSize: fontSizes["md"],
     fontFamily: fontFamilies.InterRegular,
+    color: colors.neutral[900],
   },
   baseDark: {
     borderColor: colors.grey[100],
@@ -150,10 +146,7 @@ const styles = StyleSheet.create({
   baseError: {
     borderWidth: 1,
     borderColor: colors.red[600],
-  },
-  baseErrorLight: {
-    borderWidth: 1,
-    borderColor: colors.red[900],
+    color: colors.red[600],
   },
   multiline: {
     minHeight: 100,

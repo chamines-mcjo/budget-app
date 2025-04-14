@@ -86,14 +86,14 @@ describe("TextInput Component", () => {
     const input = getByPlaceholderText("Error input");
     expect(input.props.style).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ borderColor: colors.red[900] }),
+        expect.objectContaining({ borderColor: colors.red[600] }),
       ]),
     );
 
     const label = getByText("Light Label");
     const labelStyles = label.props.style.flat();
     const errorColorStyle = labelStyles.find(
-      (style: { color?: string }) => style.color === colors.red[900],
+      (style: { color?: string }) => style.color === colors.red[600],
     );
 
     expect(errorColorStyle).toBeDefined();
