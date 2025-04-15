@@ -30,7 +30,7 @@ export type TextInputProps = {
   /**
    * Style for the container View
    */
-  containerStyle?: ViewStyle;
+  style?: ViewStyle;
 } & Pick<
   RNTextInputProps,
   | "value"
@@ -38,7 +38,6 @@ export type TextInputProps = {
   | "placeholder"
   | "testID"
   | "nativeID"
-  | "style"
   | "onFocus"
   | "onBlur"
   | "maxLength"
@@ -50,7 +49,6 @@ export type TextInputProps = {
 export function TextInput({
   variant = "dark",
   label,
-  containerStyle,
   style,
   value,
   placeholder,
@@ -67,7 +65,7 @@ export function TextInput({
     hasError && styles.labelError,
   ];
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.container, style]}>
       {Boolean(label) && (
         <Text size="md" weight="semiBold" nativeID={labelId} style={labelStyle}>
           {label}
@@ -83,7 +81,7 @@ export function TextInput({
         }
         multiline={multiline}
         textAlignVertical={multiline ? "top" : "center"}
-        style={useInputStyles({ isDark, hasError, multiline, style })}
+        style={useInputStyles({ isDark, hasError, multiline })}
         {...props}
       />
     </View>
@@ -94,22 +92,18 @@ function useInputStyles({
   isDark,
   hasError,
   multiline,
-  style,
 }: {
   isDark: boolean;
   hasError: boolean;
   multiline: boolean;
-  style?: any;
 }) {
   const baseBackground = isDark ? styles.baseDark : styles.baseLight;
-  const errorBorder = hasError ? styles.baseError : {};
 
   return [
     styles.baseCore,
     baseBackground,
     multiline && styles.multiline,
-    errorBorder,
-    style,
+    hasError && styles.baseError,
   ].filter(Boolean);
 }
 
