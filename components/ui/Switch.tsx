@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Pressable,
@@ -85,7 +85,7 @@ export function Switch({
   useEffect(() => {
     setIsOn(initialValue);
     animation.setValue(initialValue ? 1 : 0);
-  }, [initialValue]);
+  }, [initialValue, animation]);
 
   const translateX = animation.interpolate({
     inputRange: [0, 1],
