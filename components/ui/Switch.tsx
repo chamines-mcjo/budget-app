@@ -27,7 +27,7 @@ export type SwitchProps = {
    */
   description?: string;
   /**
-   * Initial value for the switch. Defaults to false.
+   * Initial value for the switch. Defaults to true.
    */
   initialValue?: boolean;
   /**
@@ -56,7 +56,7 @@ export function Switch({
   variant = "dark",
   label = "",
   description = "",
-  initialValue = false,
+  initialValue = true,
   onToggle,
   style,
   labelStyle,

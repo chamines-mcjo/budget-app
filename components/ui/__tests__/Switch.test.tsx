@@ -24,13 +24,15 @@ describe("Switch Component", () => {
 
     await act(async () => {
       fireEvent.press(toggle);
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
-    expect(onToggleMock).toHaveBeenCalledWith(true);
+    expect(onToggleMock).toHaveBeenCalledWith(false);
 
     await act(async () => {
       fireEvent.press(toggle);
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
-    expect(onToggleMock).toHaveBeenCalledWith(false);
+    expect(onToggleMock).toHaveBeenCalledWith(true);
   });
 
   it("updates internal state when initialValue prop changes", () => {
