@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  View,
-  type ViewStyle,
-  type TextStyle,
-} from "react-native";
+import { useState } from "react";
+import { Pressable, StyleSheet, View, ViewProps } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+  useSharedValue,
+  interpolateColor,
+} from "react-native-reanimated";
 
 import { fontFamilies, fontSizes } from "@/theme/fonts";
 
@@ -31,25 +30,26 @@ export type SwitchProps = {
    */
   initialValue?: boolean;
   /**
-   * External style for the wrapper
-   */
-  style?: ViewStyle;
-  /**
-   * External style for the label
-   */
-  labelStyle?: TextStyle;
-  /**
-   * External style for the description
-   */
-  descriptionStyle?: TextStyle;
-  /**
    * Vertical alignment of the content
    */
-  alignItems?: "flex-start" | "center" | "flex-end";
+  alignItems?: "top" | "center" | "bottom";
   /**
    * Function that executes when the switch is toggled.
    */
   onToggle?: (value: boolean) => void;
+} & Pick<ViewProps, "style" | "testID" | "nativeID">;
+
+const getFlexAlignItems = (
+  align: "top" | "center" | "bottom",
+): "flex-start" | "center" | "flex-end" => {
+  switch (align) {
+    case "top":
+      return "flex-start";
+    case "bottom":
+      return "flex-end";
+    default:
+      return "center";
+  }
 };
 
 export function Switch({
@@ -59,83 +59,77 @@ export function Switch({
   initialValue = true,
   onToggle,
   style,
-  labelStyle,
-  descriptionStyle,
   alignItems = "center",
+  nativeID,
+  ...props
 }: SwitchProps) {
   const isDark = variant === "dark";
 
   const [isOn, setIsOn] = useState<boolean>(initialValue);
-  const animation = useRef(new Animated.Value(initialValue ? 1 : 0)).current;
+  const progress = useSharedValue(initialValue ? 1 : 0);
 
   const toggle = () => {
     const toValue = isOn ? 0 : 1;
-
-    Animated.timing(animation, {
-      toValue,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
+    progress.value = withTiming(toValue, { duration: 300 });
 
     const newValue = !isOn;
     setIsOn(newValue);
     onToggle?.(newValue);
   };
 
-  useEffect(() => {
-    setIsOn(initialValue);
-    animation.setValue(initialValue ? 1 : 0);
-  }, [initialValue, animation]);
-
-  const translateX = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 25],
+  const thumbStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: progress.value * 24 + 1 }],
+    };
   });
 
-  const backgroundColor = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: getTrackColor(isDark),
+  const trackStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(
+        progress.value,
+        [0, 1],
+        isDark
+          ? [colors.neutral[300], colors.green[400]]
+          : [colors.neutral[700], colors.green[500]],
+      ),
+    };
   });
-
-  function getTrackColor(isDark: boolean) {
-    if (isDark) {
-      return [colors.neutral[300], colors.green[400]];
-    }
-    return [colors.neutral[700], colors.green[500]];
-  }
 
   return (
-    <View style={[styles.wrapper, style, { alignItems }]}>
+    <View
+      style={[
+        styles.wrapper,
+        style,
+        { alignItems: getFlexAlignItems(alignItems) },
+      ]}
+    >
       <View style={styles.textContainer}>
         {!!label && (
           <Text
-            style={[styles.label, labelStyle, !isDark && styles.labelLight]}
+            style={[styles.label, !isDark && styles.labelLight]}
             size="md"
+            nativeID={nativeID ? `${nativeID}-label` : undefined}
           >
             {label}
           </Text>
         )}
         {!!description && (
           <Text
-            style={[
-              styles.description,
-              descriptionStyle,
-              !isDark && styles.descriptionLight,
-            ]}
+            style={[styles.description, !isDark && styles.descriptionLight]}
             size="sm"
           >
             {description}
           </Text>
         )}
       </View>
-      <Pressable onPress={toggle} testID="animated-toggle">
-        <Animated.View style={[styles.track, { backgroundColor }]}>
+      <Pressable
+        onPress={toggle}
+        accessibilityLabelledBy={nativeID ? `${nativeID}-label` : undefined}
+        {...props}
+      >
+        <Animated.View style={[styles.track, trackStyle]}>
           <Animated.View
-            style={[
-              styles.thumb,
-              isOn && styles.thumbActive,
-              { transform: [{ translateX }] },
-            ]}
+            style={[styles.thumb, isOn && styles.thumbActive, thumbStyle]}
           />
         </Animated.View>
       </Pressable>
