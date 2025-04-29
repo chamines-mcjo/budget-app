@@ -22,7 +22,7 @@ const argTypes: Story["argTypes"] = {
     control: {
       type: "select",
     },
-    options: ["flex-start", "center", "flex-end"],
+    options: ["top", "center", "bottom"],
   },
   label: {
     control: {
@@ -59,7 +59,7 @@ export const Light: Story = {
     variant: "light",
     label: "Notificaciones diarias",
     description: "Te recordaremos registrar tus gastos cada día.",
-    initialValue: true,
+    initialValue: false,
     onToggle: action("onToggle"),
     alignItems: "center",
   },
