@@ -1,8 +1,9 @@
 import React from "react";
-import { flatten } from "lodash";
+import flatten from "lodash.flatten";
 import { act, render, fireEvent } from "@testing-library/react-native";
 import { Switch } from "../Switch";
 import { colors } from "@/theme/colors";
+import { View } from "react-native";
 
 describe("Switch Component", () => {
   it("renders correctly with label and description", () => {
@@ -19,7 +20,9 @@ describe("Switch Component", () => {
 
   it("toggles state when pressed", async () => {
     const onToggleMock = jest.fn();
-    const { getByTestId } = render(<Switch onToggle={onToggleMock} />);
+    const { getByTestId } = render(
+      <Switch onToggle={onToggleMock} testID="animated-toggle" />,
+    );
     const toggle = getByTestId("animated-toggle");
 
     await act(async () => {
@@ -36,10 +39,12 @@ describe("Switch Component", () => {
   });
 
   it("updates internal state when initialValue prop changes", () => {
-    const { rerender, getByTestId } = render(<Switch initialValue={false} />);
-    const toggle = getByTestId("animated-toggle");
+    const { rerender, getByTestId } = render(
+      <Switch initialValue={false} testID="switch-toggle" />,
+    );
+    const toggle = getByTestId("switch-toggle");
 
-    rerender(<Switch initialValue={true} />);
+    rerender(<Switch initialValue={true} testID="switch-toggle" />);
     expect(toggle).toBeTruthy();
   });
 
@@ -76,5 +81,21 @@ describe("Switch Component", () => {
         expect.objectContaining({ color: colors.neutral[100] }),
       ]),
     );
+  });
+
+  it("links switch to label via accessibilityLabelledBy", () => {
+    const { getByText, getByTestId } = render(
+      <Switch
+        label="Enable notifications"
+        testID="animated-toggle"
+        nativeID="animated-toggle"
+      />,
+    );
+
+    const label = getByText("Enable notifications");
+    const toggle = getByTestId("animated-toggle");
+
+    expect(label.props.nativeID).toBe("animated-toggle-label");
+    expect(toggle.props.accessibilityLabelledBy).toBe("animated-toggle-label");
   });
 });
