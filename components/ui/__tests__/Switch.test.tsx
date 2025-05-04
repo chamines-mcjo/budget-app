@@ -17,22 +17,20 @@ describe("Switch Component", () => {
     expect(getByText("We recommend you to enable notifications")).toBeTruthy();
   });
 
-  it("toggles state when pressed", async () => {
+  it("toggles state when pressed", () => {
     const onToggleMock = jest.fn();
     const { getByTestId } = render(
       <Switch onToggle={onToggleMock} testID="animated-toggle" />,
     );
     const toggle = getByTestId("animated-toggle");
 
-    await act(async () => {
+    act(() => {
       fireEvent.press(toggle);
-      await new Promise((resolve) => setTimeout(resolve, 0));
     });
     expect(onToggleMock).toHaveBeenCalledWith(false);
 
-    await act(async () => {
+    act(() => {
       fireEvent.press(toggle);
-      await new Promise((resolve) => setTimeout(resolve, 0));
     });
     expect(onToggleMock).toHaveBeenCalledWith(true);
   });
