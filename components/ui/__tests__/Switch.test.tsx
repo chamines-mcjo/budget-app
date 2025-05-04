@@ -3,7 +3,6 @@ import flatten from "lodash.flatten";
 import { act, render, fireEvent } from "@testing-library/react-native";
 import { Switch } from "../Switch";
 import { colors } from "@/theme/colors";
-import { View } from "react-native";
 
 describe("Switch Component", () => {
   it("renders correctly with label and description", () => {

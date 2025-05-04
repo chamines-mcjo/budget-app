@@ -152,7 +152,6 @@ const styles = StyleSheet.create({
   label: {
     color: colors.neutral[900],
     fontFamily: fontFamilies.InterSemiBold,
-    fontSize: fontSizes.md,
   },
   labelLight: {
     color: colors.neutral[100],
@@ -160,7 +159,6 @@ const styles = StyleSheet.create({
   description: {
     color: colors.neutral[900],
     fontFamily: fontFamilies.InterRegular,
-    fontSize: fontSizes.sm,
   },
   descriptionLight: {
     color: colors.neutral[100],
