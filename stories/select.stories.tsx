@@ -1,32 +1,36 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { Select } from "@/components/ui/Select";
+import { Select } from "@/components/ui/Select/Select";
 
 const meta = {
   title: "Select",
-  component: Select,
-} satisfies Meta<typeof Select>;
+  component: Select.GridPicker,
+} satisfies Meta<typeof Select.GridPicker>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 const argTypes: Story["argTypes"] = {
-  variant: {
-    control: {
-      type: "select",
-    },
-    options: ["dark", "light"],
-  },
   label: {
+    control: {
+      type: "text",
+    },
+  },
+  placeholder: {
     control: {
       type: "text",
     },
   },
   value: {
     control: {
-      type: "text",
+      type: "object",
+    },
+  },
+  options: {
+    control: {
+      type: "object",
     },
   },
   hasError: {
@@ -36,29 +40,25 @@ const argTypes: Story["argTypes"] = {
   },
 };
 
-export const Simple: Story = {
-  argTypes,
-  args: {
-    label: "Monthly amount",
-    value: undefined,
-    placeholder: "0.00",
-    onChangeText: action("onChangeText"),
-    variant: "dark",
-  },
-};
+const options: Array<Record<string, string>> = [
+  { label: "Diario", value: "daily", id: "daily" },
+  { label: "Semanal", value: "weekly", id: "weekly" },
+  { label: "Quincenal", value: "biweekly", id: "biweekly" },
+  { label: "Mensual", value: "monthly", id: "monthly" },
+  { label: "Anual", value: "annual", id: "annual" },
+];
 
-export const CustomRender: Story = {
+export const Grid: Story = {
   argTypes,
   args: {
-    label: "Monthly amount",
-    value: undefined,
-    placeholder: "0.00",
-    onChangeText: action("onChangeText"),
-    variant: "light",
-  },
-  parameters: {
-    backgrounds: {
-      default: "primary-700",
+    label: "Frecuencia de pago",
+    value: {
+      label: "Mensual",
+      value: "monthly",
+      id: "monthly",
     },
+    placeholder: "Por uso",
+    options,
+    onSelectValue: action("onSelectValue"),
   },
 };
