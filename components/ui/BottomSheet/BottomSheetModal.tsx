@@ -1,9 +1,6 @@
 import React, { useImperativeHandle, useRef } from "react";
 import { StyleSheet } from "react-native";
-import {
-  BottomSheetModal as BSM,
-  BottomSheetScrollView,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal as BSM, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BottomSheetBackdrop } from "@/components/ui/BottomSheet/BottomSheetBackdrop";
 
 import { type ReactNode } from "react";
@@ -31,9 +28,9 @@ export const BottomSheetModal = React.forwardRef<BSM, BottomSheetModalProps>(
         backdropComponent={BottomSheetBackdrop}
         {...rest}
       >
-        <BottomSheetScrollView contentContainerStyle={styles.scrollViewContent}>
+        <BottomSheetView style={styles.scrollViewContent}>
           {children}
-        </BottomSheetScrollView>
+        </BottomSheetView>
       </BSM>
     );
   },
