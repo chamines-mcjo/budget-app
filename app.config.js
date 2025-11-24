@@ -1,6 +1,6 @@
 module.exports = {
-  name: "new",
-  slug: "new",
+  name: "Quantia",
+  slug: "quantia",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
