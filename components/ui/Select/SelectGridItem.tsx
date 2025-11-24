@@ -19,7 +19,7 @@ export function SelectGridItem({
       style={[
         styles.container,
         isSelected && styles.selected,
-        isPressed && isPressed && styles.pressedSelected,
+        isPressed && styles.pressedSelected,
         isPressed && !isSelected && styles.pressed,
       ]}
     >
