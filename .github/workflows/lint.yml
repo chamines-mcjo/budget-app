@@ -15,10 +15,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
-          cache: "yarn"
+          cache: "npm"
 
       - name: 📦 Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: 🤓 Run ESLint
-        run: yarn lint
+        run: npm run lint
