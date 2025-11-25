@@ -56,7 +56,7 @@ function RootLayout() {
 let AppRoot = RootLayout;
 
 if (isStorybookEnabled) {
-  const StorybookUI = require("../.storybook/index").default;
+  const StorybookUI = require("../.rnstorybook/index").default;
 
   AppRoot = function StorybookRoot() {
     const [loaded] = useFonts({
