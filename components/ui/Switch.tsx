@@ -7,7 +7,7 @@ import Animated, {
   interpolateColor,
 } from "react-native-reanimated";
 
-import { fontFamilies, fontSizes } from "@/theme/fonts";
+import { fontFamilies } from "@/theme/fonts";
 
 import { Text } from "@/components/ui/Text";
 import { colors } from "@/theme/colors";
