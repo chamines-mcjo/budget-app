@@ -13,50 +13,57 @@ const flattenTextStyle = (style: StyleProp<TextStyle>) =>
   StyleSheet.flatten(style) ?? {};
 
 describe("PillIndicator", () => {
-  it("renders with a solid background by default", () => {
+  it("renders the primary solid palette by default", () => {
     const { getByTestId, getByText } = render(
-      <PillIndicator testID="pill">Step 1 of 2</PillIndicator>,
+      <PillIndicator testID="pill">Paso 1 de 2</PillIndicator>,
     );
 
     const pill = getByTestId("pill");
-    const style = flattenViewStyle(pill.props.style);
-    expect(style.backgroundColor).toBe(colors.neutral["900"]);
+    const pillStyle = flattenViewStyle(pill.props.style);
+    expect(pillStyle.backgroundColor).toBe(colors.neutral["0"]);
 
-    expect(getByText("Step 1 of 2")).toBeTruthy();
+    const label = getByText("Paso 1 de 2");
+    const labelStyle = flattenTextStyle(label.props.style);
+    expect(labelStyle.color).toBe(colors.grey["800"]);
   });
 
-  it("supports gradient backgrounds", () => {
-    const gradientColors: [string, string] = ["#111111", "#222222"];
+  it("uses the secondary palette when requested for solid appearance", () => {
     const { getByTestId } = render(
-      <PillIndicator
-        testID="pill"
-        variant="gradient"
-        gradientColors={gradientColors}
-      >
-        Step 1 of 2
-      </PillIndicator>,
-    );
-
-    const pill = getByTestId("pill");
-    const processedGradient = gradientColors.map((color) =>
-      processColor(color),
-    );
-    expect(pill.props.colors).toEqual(processedGradient);
-  });
-
-  it("allows overriding solid and text colors", () => {
-    const { getByTestId, getByText } = render(
-      <PillIndicator testID="pill" solidColor="#123456" textColor="#654321">
-        Step 2 of 2
+      <PillIndicator testID="pill" variant="secondary" appearance="solid">
+        Paso 2 de 2
       </PillIndicator>,
     );
 
     const pill = getByTestId("pill");
     const pillStyle = flattenViewStyle(pill.props.style);
-    expect(pillStyle.backgroundColor).toBe("#123456");
+    expect(pillStyle.backgroundColor).toBe(colors.neutral["900"]);
+  });
 
-    const text = getByText("Step 2 of 2");
-    const textStyle = flattenTextStyle(text.props.style);
-    expect(textStyle.color).toBe("#654321");
+  it("renders gradient colors based on the variant palette", () => {
+    const { getByTestId } = render(
+      <PillIndicator testID="pill" appearance="gradient" variant="primary">
+        Paso 1 de 2
+      </PillIndicator>,
+    );
+
+    const pill = getByTestId("pill");
+    const expectedGradient = [colors.primary["500"], colors.primary["800"]].map(
+      (color) => processColor(color),
+    );
+    expect(pill.props.colors).toEqual(expectedGradient);
+  });
+
+  it("updates gradient colors when switching to the secondary variant", () => {
+    const { getByTestId } = render(
+      <PillIndicator testID="pill" appearance="gradient" variant="secondary">
+        Paso 2 de 2
+      </PillIndicator>,
+    );
+
+    const pill = getByTestId("pill");
+    const expectedGradient = [colors.red["400"], colors.red["500"]].map(
+      (color) => processColor(color),
+    );
+    expect(pill.props.colors).toEqual(expectedGradient);
   });
 });

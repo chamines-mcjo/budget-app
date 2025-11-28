@@ -1,39 +1,21 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View } from "react-native";
-import type { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
+import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 
 import { Text } from "@/components/ui/Text";
 import { colors } from "@/theme/colors";
 
 export type PillIndicatorProps = {
   /**
-   * Text rendered inside the pill.
+   * "solid" | "gradient"
    */
+  appearance?: "solid" | "gradient";
+  /**
+   * Preset variant for the pill indicator "primary" or "secondary"
+   */
+  variant?: "primary" | "secondary";
   children: string;
-  /**
-   * Choose between a solid or gradient background.
-   */
-  variant?: "solid" | "gradient";
-  /**
-   * Solid background color when variant is set to solid.
-   */
-  solidColor?: string;
-  /**
-   * Gradient color stops when variant is set to gradient.
-   */
-  gradientColors?: [string, string];
-  /**
-   * Color applied to the label text.
-   */
-  textColor?: string;
-  /**
-   * Style overrides for the pill container.
-   */
   style?: StyleProp<ViewStyle>;
-  /**
-   * Style overrides for the label text.
-   */
-  textStyle?: StyleProp<TextStyle>;
 } & Pick<
   ViewProps,
   | "testID"
@@ -43,36 +25,28 @@ export type PillIndicatorProps = {
   | "accessibilityRole"
 >;
 
-const defaultGradientColors: [string, string] = [
-  colors.primary["400"],
-  colors.primary["700"],
-];
-
 export function PillIndicator({
   children,
-  variant = "solid",
-  solidColor = colors.neutral["900"],
-  gradientColors = defaultGradientColors,
-  textColor = colors.neutral["0"],
+  appearance = "solid",
+  variant = "primary",
   style,
-  textStyle,
   ...accessibilityProps
 }: PillIndicatorProps) {
   const content = (
     <Text
       size="sm"
       weight="semiBold"
-      style={[styles.label, { color: textColor }, textStyle]}
+      style={[styles.label, { color: textColors[appearance][variant] }]}
     >
       {children}
     </Text>
   );
 
-  if (variant === "gradient") {
+  if (appearance === "gradient") {
     return (
       <LinearGradient
         {...accessibilityProps}
-        colors={gradientColors}
+        colors={gradientBackgrounds[variant]}
         style={[styles.base, style]}
       >
         {content}
@@ -83,12 +57,37 @@ export function PillIndicator({
   return (
     <View
       {...accessibilityProps}
-      style={[styles.base, { backgroundColor: solidColor }, style]}
+      style={[
+        styles.base,
+        { backgroundColor: solidBackgrounds[variant] },
+        style,
+      ]}
     >
       {content}
     </View>
   );
 }
+
+const solidBackgrounds = {
+  primary: colors.neutral["0"],
+  secondary: colors.neutral["900"],
+} as const;
+
+const gradientBackgrounds = {
+  primary: [colors.primary["500"], colors.primary["800"]],
+  secondary: [colors.red["400"], colors.red["500"]],
+} as const;
+
+const textColors = {
+  solid: {
+    primary: colors.grey["800"],
+    secondary: colors.neutral["0"],
+  },
+  gradient: {
+    primary: colors.neutral["0"],
+    secondary: colors.neutral["0"],
+  },
+};
 
 const styles = StyleSheet.create({
   base: {

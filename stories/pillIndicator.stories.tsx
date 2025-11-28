@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { View } from "react-native";
-import { PillIndicator } from "@/components/ui/PillIndicator";
+import {
+  PillIndicator,
+  type PillIndicatorProps,
+} from "@/components/ui/PillIndicator";
 import { colors } from "@/theme/colors";
 
 const meta = {
@@ -8,45 +11,34 @@ const meta = {
   component: PillIndicator,
   args: {
     children: "Paso 1 de 2",
+    appearance: "solid",
+    variant: "primary",
   },
   argTypes: {
-    variant: {
-      control: {
-        type: "select",
-      },
+    appearance: {
+      control: { type: "select" },
       options: ["solid", "gradient"],
+      description: "Render with a solid fill or gradient background.",
     },
-    solidColor: {
-      control: {
-        type: "color",
-      },
-    },
-    textColor: {
-      control: {
-        type: "color",
-      },
-    },
-    gradientColors: {
-      control: {
-        type: "object",
-      },
-      description: "Array with two color stops, e.g. ['#fff', '#000']",
+    variant: {
+      control: { type: "select" },
+      options: ["primary", "secondary"],
+      description: "Color variant of the pill indicator.",
     },
   },
-} satisfies Meta<typeof PillIndicator>;
+} satisfies Meta<PillIndicatorProps>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<PillIndicatorProps>;
 
 export const Solid: Story = {
   args: {
-    variant: "solid",
-    solidColor: colors.neutral["0"],
-    textColor: colors.grey["800"],
+    appearance: "solid",
+    variant: "primary",
   },
   decorators: [
-    (Story) => (
+    (StoryComponent) => (
       <View
         style={{
           backgroundColor: colors.primary["800"],
@@ -54,7 +46,7 @@ export const Solid: Story = {
           flex: 1,
         }}
       >
-        <Story />
+        <StoryComponent />
       </View>
     ),
   ],
@@ -62,12 +54,11 @@ export const Solid: Story = {
 
 export const Gradient: Story = {
   args: {
-    variant: "gradient",
-    gradientColors: [colors.secondary["400"], colors.secondary["700"]],
-    textColor: colors.neutral["0"],
+    appearance: "gradient",
+    variant: "secondary",
   },
   decorators: [
-    (Story) => (
+    (StoryComponent) => (
       <View
         style={{
           backgroundColor: colors.neutral["300"],
@@ -75,7 +66,7 @@ export const Gradient: Story = {
           flex: 1,
         }}
       >
-        <Story />
+        <StoryComponent />
       </View>
     ),
   ],
