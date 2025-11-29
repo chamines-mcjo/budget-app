@@ -1,11 +1,23 @@
 import { Image, StyleSheet, Platform } from "react-native";
+import { useRouter } from "expo-router";
+import Constants from "expo-constants";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { PullTabButton } from "@/components/ui/PullTabButton/PullTabButton";
+
+const isStorybookEnabled =
+  Constants?.expoConfig?.extra?.storybookEnabled === "true";
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const goToStorybook = () => {
+    router.navigate("/storybook");
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -16,6 +28,11 @@ export default function HomeScreen() {
         />
       }
     >
+      {isStorybookEnabled && (
+        <PullTabButton style={styles.pullTabButton} onPress={goToStorybook}>
+          Go to Storybook
+        </PullTabButton>
+      )}
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
@@ -74,5 +91,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: "absolute",
+  },
+  pullTabButton: {
+    position: "absolute",
+    right: 0,
+    zIndex: 10,
   },
 });
