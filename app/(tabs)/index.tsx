@@ -1,11 +1,23 @@
 import { Image, StyleSheet, Platform } from "react-native";
+import { useRouter } from "expo-router";
+import Constants from "expo-constants";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { PullTabButton } from "@/components/ui/PullTabButton/PullTabButton";
+
+const isStorybookEnabled =
+  Constants?.expoConfig?.extra?.storybookEnabled === "true";
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const goToStorybook = () => {
+    router.navigate("/storybook");
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -16,6 +28,11 @@ export default function HomeScreen() {
         />
       }
     >
+      {isStorybookEnabled && (
+        <PullTabButton style={styles.pullTabButton} onPress={goToStorybook}>
+          Go to Storybook
+        </PullTabButton>
+      )}
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
@@ -39,14 +56,14 @@ export default function HomeScreen() {
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 2: Explore</ThemedText>
         <ThemedText>
-          Tap the Explore tab to learn more about what's included in this
+          Tap the Explore tab to learn more about what&apos;s included in this
           starter app.
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
-          When you're ready, run{" "}
+          When you&apos;re ready, run{" "}
           <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>{" "}
           to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
           directory. This will move the current{" "}
@@ -74,5 +91,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: "absolute",
+  },
+  pullTabButton: {
+    position: "absolute",
+    right: 0,
+    zIndex: 10,
   },
 });

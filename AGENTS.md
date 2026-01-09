@@ -1,17 +1,17 @@
 # Project Overview
 
-This is an Expo development project. We are using Expo SDK for building cross-platform application. All commands should be run using `yarn` and from the root directory of the project.
+This is an Expo development project. We are using Expo SDK for building cross-platform application. All commands should be run using `npm` and from the root directory of the project.
 
 # Dev Environment Setup
 
-- Use `yarn` to install dependencies.
-- Use `yarn start` to start the development server.
-- Use `yarn storybook` to start Storybook for UI component development.
+- Use `npm` to install dependencies.
+- Use `npm start` to start the development server.
+- Use `npm storybook` to start Storybook for UI component development.
 
 # Testing instructions
 
-- Use `yarn test:ci` to run the test suite.
-- Use `yarn test` to run tests in watch mode during development.
+- Use `npm test:ci` to run the test suite.
+- Use `npm test` to run tests in watch mode during development.
 - Always make sure coverage is above 80%.
 
 # PR Instructions
